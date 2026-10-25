@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <meta name="description" content="Receiptly — demo quản lý chi tiêu và quét hóa đơn trên thiết bị.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Receiptly — Expense & Receipt Demo</title>
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main class="site-shell">
+    <section class="story-panel" aria-labelledby="site-title">
+      <a class="brand" href="#" aria-label="Receiptly home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M8 5.5h16v21l-2.7-1.8-2.7 1.8-2.6-1.8-2.7 1.8-2.7-1.8L8 26.5z"/><path d="M12 11h8M12 15h8M12 19h5"/></svg>
+        </span>
+        <span><strong>Receiptly</strong><small>Smart expense notebook</small></span>
+      </a>
+
+      <div class="story-copy">
+        <span class="eyebrow">MINI-PROJECT 3 · FLUTTER</span>
+        <h1 id="site-title">Mỗi hóa đơn,<br><em>một con số rõ ràng.</em></h1>
+        <p>Ghi chép chi tiêu, nhận diện hóa đơn bằng OCR và nhìn lại thói quen tài chính — tất cả ngay trên thiết bị.</p>
+        <div class="story-actions">
+          <button class="primary-cta" id="install-app" hidden>
+            <span>Cài bản demo</span><span aria-hidden="true">↗</span>
+          </button>
+          <a class="secondary-cta" href="https://github.com/quyen-jr/receiptmanagerment" target="_blank" rel="noreferrer">Xem mã nguồn</a>
+        </div>
+        <div class="trust-row" aria-label="Thông tin kỹ thuật">
+          <span><b>100%</b> offline-first</span>
+          <span><b>OCR</b> on-device</span>
+          <span><b>SQLite</b> local data</span>
+        </div>
+      </div>
+
+      <div class="story-note">
+        <span class="pulse"></span>
+        <p><strong>Bản demo web tương tác</strong><br>OCR thật và SQLite hoạt động trong ứng dụng Android.</p>
+      </div>
+    </section>
+
+    <section class="demo-stage" aria-label="Bản demo ứng dụng Receiptly">
+      <div class="demo-caption">
+        <span>LIVE PRODUCT DEMO</span>
+        <span class="demo-status"><i></i> Dữ liệu lưu trên trình duyệt</span>
+      </div>
+
+      <div class="phone-frame">
+        <div class="phone-top" aria-hidden="true"><span></span></div>
+        <div class="app" id="app">
+          <header class="app-header">
+            <div class="app-identity">
+              <span class="app-logo"><svg viewBox="0 0 32 32"><path d="M8 5.5h16v21l-2.7-1.8-2.7 1.8-2.6-1.8-2.7 1.8-2.7-1.8L8 26.5z"/><path d="M12 11h8M12 15h8M12 19h5"/></svg></span>
+              <span><small>RECEIPTLY</small><strong id="page-title">Tổng quan</strong></span>
+            </div>
+            <button class="icon-button" id="reset-demo" title="Đặt lại dữ liệu demo" aria-label="Đặt lại dữ liệu demo">↻</button>
+          </header>
+
+          <div class="app-pages">
+            <section class="app-page active" data-page="dashboard" aria-label="Tổng quan">
+              <div class="month-switcher">
+                <button aria-label="Tháng trước">←</button>
+                <span>▣&nbsp;&nbsp;Tháng 10&nbsp; · &nbsp;2026</span>
+                <button aria-label="Tháng sau" disabled>→</button>
+              </div>
+
+              <article class="balance-card">
+                <div class="balance-label"><span>TỔNG CHI THÁNG NÀY</span><i>◫</i></div>
+                <div class="balance-value" id="total-value">0 ₫</div>
+                <div class="balance-stats">
+                  <div><b id="transaction-count">0</b><span>Giao dịch</span></div>
+                  <div><b id="top-category">—</b><span>Chi nhiều nhất</span></div>
+                </div>
+              </article>
+
+              <div class="quick-grid">
+                <button class="quick-card" data-action="add"><i>＋</i><span><b>Ghi khoản chi</b><small>Nhập thủ công</small></span></button>
+                <button class="quick-card" data-go="insights"><i>⌁</i><span><b>Xem phân tích</b><small>Theo danh mục</small></span></button>
+              </div>
+
+              <div class="section-heading">
+                <h2>Mới ghi gần đây</h2>
+                <button data-go="transactions">Mở sổ →</button>
+              </div>
+              <div class="transaction-list" id="recent-list"></div>
+            </section>
+
+            <section class="app-page" data-page="transactions" aria-label="Sổ giao dịch">
+              <div class="month-switcher">
+                <button aria-label="Tháng trước">←</button><span>▣&nbsp;&nbsp;Tháng 10&nbsp; · &nbsp;2026</span><button disabled>→</button>
+              </div>
+              <article class="ledger-summary">
+                <i>▤</i><span><small id="ledger-count">0 mục trong sổ</small><b id="ledger-total">0 ₫</b></span>
+                <button data-action="add">＋ Thêm</button>
+              </article>
+              <div class="section-heading compact"><h2>Tất cả giao dịch</h2><span>Mới nhất trước</span></div>
+              <div class="transaction-list" id="all-list"></div>
+              <p class="list-hint">Chạm một giao dịch để sửa hoặc xóa</p>
+            </section>
+
+            <section class="app-page" data-page="insights" aria-label="Phân tích">
+              <div class="month-switcher">
+                <button aria-label="Tháng trước">←</button><span>▣&nbsp;&nbsp;Tháng 10&nbsp; · &nbsp;2026</span><button disabled>→</button>
+              </div>
+              <article class="insight-hero"><span><small>BỨC TRANH CHI TIÊU</small><b>Nhìn lại thói quen<br>của bạn</b></span><i>⌁</i></article>
+              <article class="chart-card">
+                <div class="chart-title"><h2>Chi theo danh mục</h2><span id="chart-count">0 mục</span></div>
+                <div class="donut-wrap"><div class="donut" id="donut"><span><b>100%</b><small>TỔNG CƠ CẤU</small></span></div></div>
+                <div class="legend" id="legend"></div>
+              </article>
+              <article class="bars-card">
+                <div><h2>Nhịp chi 7 ngày</h2><p>Mỗi cột là tổng chi trong ngày.</p></div>
+                <div class="bars" id="bars"></div>
+                <div class="bar-axis"><span>6 ngày trước</span><span>Hôm nay</span></div>
+              </article>
+            </section>
+          </div>
+
+          <nav class="app-nav" aria-label="Điều hướng demo">
+            <button class="nav-item active" data-go="dashboard"><i>▦</i><span>Tổng quan</span></button>
+            <button class="nav-item" data-go="transactions"><i>▤</i><span>Giao dịch</span></button>
+            <button class="nav-item" data-go="insights"><i>◔</i><span>Phân tích</span></button>
+            <span class="nav-separator"></span>
+            <button class="scan-button" id="scan-button"><i>⌗</i><span>Quét</span></button>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="modal" id="entry-modal">
+    <form method="dialog" id="entry-form">
+      <div class="modal-handle"></div>
+      <header class="modal-title"><i>＋</i><span><small>SỔ CHI TIÊU</small><b id="form-title">Ghi khoản chi</b></span><button value="cancel" aria-label="Đóng">×</button></header>
+      <input type="hidden" id="entry-id">
+      <label>Tên cửa hàng / nội dung<input id="merchant" required maxlength="60" placeholder="Ví dụ: Highlands Coffee"></label>
+      <label>Số tiền (VND)<input id="amount" required type="number" min="1" inputmode="numeric" placeholder="85000"></label>
+      <label>Danh mục<select id="category"><option>Ăn uống</option><option>Mua sắm</option><option>Di chuyển</option><option>Hóa đơn</option><option>Sức khỏe</option><option>Khác</option></select></label>
+      <label>Ngày giao dịch<input id="date" required type="date"></label>
+      <label>Ghi chú<input id="note" maxlength="100" placeholder="Không bắt buộc"></label>
+      <div class="modal-actions"><button type="button" class="danger" id="delete-entry" hidden>Xóa</button><button type="submit" class="save">✓ Lưu vào sổ</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="modal scan-modal" id="scan-modal">
+    <div class="modal-handle"></div>
+    <header class="modal-title"><i>⌗</i><span><small>DEMO OCR</small><b>Đưa hóa đơn vào sổ</b></span><button id="close-scan" aria-label="Đóng">×</button></header>
+    <p>Bản web mô phỏng luồng kiểm tra OCR. OCR Google ML Kit thật hoạt động trong APK Android.</p>
+    <label class="upload-zone" for="receipt-file"><i>⌑</i><b>Chọn ảnh hóa đơn</b><span>PNG, JPG hoặc ảnh từ camera</span></label>
+    <input id="receipt-file" type="file" accept="image/*" capture="environment" hidden>
+    <div class="scan-progress" id="scan-progress" hidden><span></span><p>Đang đọc hóa đơn trên thiết bị…</p></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
